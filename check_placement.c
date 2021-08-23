@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_placement.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hkrishna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/23 20:46:02 by hkrishna          #+#    #+#             */
+/*   Updated: 2021/08/23 20:46:04 by hkrishna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "BSQ.h"
-#include <stdio.h>
 
 t_square	check_placement(int **map, t_point size)
 {
-	t_point cursor;
+	t_point		cursor;
 	t_square	new;
 	t_square	max;
 
@@ -14,9 +25,6 @@ t_square	check_placement(int **map, t_point size)
 		cursor.x = 0;
 		while (cursor.x < size.x - max.size + 1)
 		{
-			//printf("Check_placement: square(%d, %d) = %d\n", max.start.y, max.start.x, max.size);
-			//printf("Cursor (%d, %d)\n", cursor.y, cursor.x);
-			//map_print(map);
 			if (!map[cursor.y][cursor.x])
 			{
 				init_square(&new, cursor.y, cursor.x, max.size);
