@@ -1,6 +1,6 @@
 #ifndef BSQ_H
 #define BSQ_H
-
+#include <stdio.h>
 typedef struct s_point
 {
 	int	y;
@@ -13,10 +13,13 @@ typedef struct s_square
 	int size;
 }	t_square;
 
-void	init_square(t_square *src, int y, int x);
+void	init_square(t_square *src, int y, int x, int size);
 void	copy_square(t_square *dest, t_square *src);
 
-t_square	put_bigger_square(int **map, int size, t_square new);
-t_square	put_square(int **map, int size, t_square new);
+t_square	put_bigger_square(int **map, t_point size, t_square new);
+t_square	put_square(int **map, t_point size, t_square new);
+
+t_square	check_placement(int **map, t_point size);
+void map_print(int **kek);
 
 #endif //BSQ_H
