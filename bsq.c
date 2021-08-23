@@ -14,6 +14,17 @@ typedef struct t_header
 	char seed;
 }	   s_header;
 
+int	ft_strlen(char *str)
+{
+	int	ln;
+
+	ln = 0;
+	while (str[ln] != '\0')
+	{
+		ln++;
+	}
+	return (ln);
+}
 
 int		ft_atoi(char *str)
 {
@@ -46,7 +57,7 @@ int		ft_atoi(char *str)
 
 int		ft_isspace(int c)
 {
-	return (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r' || c == ' ' ? 1 : 0);
+	return (c == '\0' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r' || c == ' ' ? 1 : 0);
 }
 
 int		ft_is_digit(int c)
@@ -55,6 +66,33 @@ int		ft_is_digit(int c)
 	c == '4' || c == '5' || c == '6' ||
 	c == '7' || c == '8' || c == '9' ||
 	c == '0' ? 1 : 0);
+}
+
+int		ft_strcmp(char *s1, char *s2)
+{
+	while (*s1 == *s2 && *s1)
+	{
+		s1++;
+		s2++;
+	}
+	return (*s1 - *s2);
+}
+
+int ft_is_number(const char *str)
+{
+	int counter;
+
+	counter = 0;
+	while (!ft_isspace(str[counter]))
+	{
+		if (!ft_is_digit(str[counter]))
+		{
+
+			return (0);
+		}
+		counter++;
+	}
+	return (1);
 }
 
 int		ft_is_printable(char c)
@@ -94,6 +132,10 @@ int ft_display_file(char **filename)
 
 	fp = open(*filename, O_RDONLY);
 	buffer = (char *) malloc(sizeof(buffer) * size_of_file);
+	if (!buffer)
+	{
+		ft_putstr("map error / no memory located");
+	}
 	read(fp, buffer, size_of_file);
 	
 	write(1, buffer, size_of_file);
@@ -159,6 +201,72 @@ s_header check_header(char *memory_stick)
 	return(my_header);
 }
 
+s_header alt_check_header(char *memory_stick)
+{
+	char	array_size[50];
+	int	 counter;
+	s_header my_header;
+
+	counter = 0;
+	while (!ft_isspace(memory_stick[counter]))			// читаем строку с заголовком
+	{
+		array_size[counter] = memory_stick[counter];
+		counter++;
+	}
+
+	if (!ft_is_printable(array_size[counter-3])) 	//проверяем символ пустоты
+	{
+		ft_putstr("oh shit no empty symbol ");
+		my_header.size_header = -1;
+	}
+	if (!ft_is_printable(array_size[counter-2]))		//проверяем символ препятствия
+	{
+		ft_putstr("oh shit no obstacle symbol ");
+		my_header.size_header = -1;
+	}
+	if (!ft_is_printable(array_size[counter-1]))		//проверяем символ тела квадрата
+	{
+		ft_putstr("oh shit no body symbol ");
+		my_header.size_header = -1;
+	}
+	//printf("%s строка выглядит как то так\n", array_size);
+
+	my_header.size_header = counter - 3;
+
+	my_header.empty_space =array_size[counter - 3];
+	array_size[counter - 3] = '\0';
+	my_header.obstacle = array_size[counter - 2];
+	array_size[counter - 2] = '\0';
+	my_header.seed = array_size[counter - 1];
+	array_size[counter - 1] = '\0';
+
+	//printf("%s строка выглядит как то так\n", array_size);
+
+	if (!ft_strlen(array_size))
+	{
+		ft_putstr("oh shit no size, ничего в размере строк ");
+		my_header.size_header = -1;
+		return(my_header);
+	}
+
+	if (!ft_is_number(array_size))
+	{
+		ft_putstr("oh shit no size, мусор в размере строк");
+		my_header.size_header = -1;
+		return(my_header);
+	}
+
+	if (ft_atoi(array_size) < 0)
+	{
+		ft_putstr("пошел на хуй со своим интеджером ");
+		my_header.size_header = -1;
+		return(my_header);
+	}
+
+	my_header.size_map = ft_atoi(array_size);
+	return(my_header);
+}
+
 int main(void)
 {
 	char filename[128] = "f";
@@ -168,7 +276,7 @@ int main(void)
 
 	datafile = filename; 				//	задаем имя файла
 	ft_display_file(&datafile);			//	получаем содержимое файла в память
-	my_header = check_header(datafile);	//	получаем заголовк файла или если -1 то заголовок битый
+	my_header = alt_check_header(datafile);	//	получаем заголовк файла или если -1 то заголовок битый
 
 	if (my_header.size_header < 0)
 	{
