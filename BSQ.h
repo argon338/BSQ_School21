@@ -13,6 +13,18 @@
 #ifndef BSQ_H
 # define BSQ_H
 
+# include <stdlib.h>
+
+typedef struct s_map
+{
+	int		size_header;
+	int		number_of_lines;
+	int		line_length;
+	char	empty_space;
+	char	obstacle;
+	char	seed;
+}	t_map;
+
 typedef struct s_point
 {
 	int	y;
@@ -33,5 +45,7 @@ t_square	put_square(int **map, t_point size, t_square new);
 
 t_square	check_placement(int **map, t_point size);
 void		map_print(int **kek);
+
+int			**parce_line(char *datafile, t_map map_parameters);
 
 #endif //BSQ_H
