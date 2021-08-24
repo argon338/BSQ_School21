@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "BSQ.h"
-
+#include <stdio.h>
 t_square	mark_inaccessible(int **map, t_point size, t_square new,
 							  t_point obstacle)
 {
@@ -43,7 +43,7 @@ t_square	put_bigger_square_part_2(int **map, t_point size, t_square new)
 	success = 1;
 	while (cursor.x < new.start.x + new.size - 1 && success)
 	{
-		if (cursor.x >= size.x)
+		if (cursor.y >= size.y || cursor.x >= size.x)
 			success = 0;
 		else if (map[cursor.y][cursor.x] == 1)
 			success = 0;
@@ -63,15 +63,17 @@ t_square	put_bigger_square_part_2(int **map, t_point size, t_square new)
 
 t_square	put_bigger_square(int **map, t_point size, t_square new)
 {
+	//printf("Called put_bigger_square, size: %d\n", new.size);
 	t_point	cursor;
 	int		success;
 
 	cursor.y = new.start.y;
 	cursor.x = new.start.x + new.size - 1;
 	success = 1;
-	while (cursor.y < new.start.y + new.size && success)
+	while ((cursor.y < new.start.y + new.size) && success)
 	{
-		if (cursor.y >= size.y)
+		//printf("put_bigger_square cursor (%d, %d) size.y = \n", cursor.y, cursor.x);
+		if (cursor.y >= size.y || cursor.x >= size.x)
 			success = 0;
 		else if (map[cursor.y][cursor.x] == 1)
 			success = 0;
@@ -96,6 +98,7 @@ t_square	call_mark_inaccessible(int **map, t_point size, t_square new,
 
 t_square	put_square(int **map, t_point size, t_square new)
 {
+	//printf("Called put_square\n");
 	t_point	cursor;
 	int		success;
 
@@ -106,6 +109,7 @@ t_square	put_square(int **map, t_point size, t_square new)
 		cursor.x = new.start.x;
 		while (cursor.x < new.start.x + new.size && success)
 		{
+			//printf("put_square cursor (%d, %d)\n", cursor.y, cursor.x);
 			if (cursor.y >= size.y || cursor.x >= size.x)
 				success = 0;
 			else if (map[cursor.y][cursor.x] == 1)

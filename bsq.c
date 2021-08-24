@@ -144,7 +144,6 @@ int 	ft_display_file(char **filename)
 	*filename = buffer;
 
 	close(fp);
-	free(buffer);
 	return (size_of_file);
 }
 
@@ -322,31 +321,29 @@ int		check_map_body_strings(const char *memory_stick, t_map *to_check)
 }
 
 
-int		main(void)
+int		main_parcer(char **datafile, t_map *my_header)
 {
 	char filename[128] = "f";
-	char *datafile;
-	t_map my_header;
 
 
-	datafile = filename;
+	*datafile = filename;
 										 //	задаем имя файла
-	ft_display_file(&datafile);				//	получаем содержимое файла в память
-	my_header = ft_check_header(datafile);	//	получаем заголовк файла или если -1 то заголовок битый
+	ft_display_file(datafile);				//	получаем содержимое файла в память
+	*my_header = ft_check_header(*datafile);	//	получаем заголовк файла или если -1 то заголовок битый
 
-	if (my_header.size_header < 0)
+	if (my_header->size_header < 0)
 	{
 		ft_putstr("map error // заголовок говно");
 		return (-1);
 	}
-	printf("размер заголовка %i\n", my_header.size_header);
-	printf("размер карты %i линий \n", my_header.number_of_lines);
-	printf("пустой символ %c\n", my_header.empty_space);
-	printf("символ препятствия %c\n", my_header.obstacle);
-	printf("символ заполнения квадрата %c\n", my_header.seed);
-	printf("размер строки ёба %d\n", my_header.line_length);
-	printf("     %d\n", check_map_body_symbols(datafile, my_header));
-	printf("     %d\n", check_map_body_strings(datafile, &my_header));
-	printf("размер строки ёба %d\n", my_header.line_length);
-
+	printf("размер заголовка %i\n", my_header->size_header);
+	printf("размер карты %i линий \n", my_header->number_of_lines);
+	printf("пустой символ %c\n", my_header->empty_space);
+	printf("символ препятствия %c\n", my_header->obstacle);
+	printf("символ заполнения квадрата %c\n", my_header->seed);
+	printf("размер строки ёба %d\n", my_header->line_length);
+	printf("     %d\n", check_map_body_symbols(*datafile, *my_header));
+	printf("     %d\n", check_map_body_strings(*datafile, my_header));
+	printf("размер строки ёба %d\n", my_header->line_length);
+	return(0);
 }
