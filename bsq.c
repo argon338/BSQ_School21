@@ -128,16 +128,16 @@ int 	ft_display_file(char **filename)
 	while (read(fp, &character, 1))
 		size_of_file++;
 	close(fp);
-
+	printf("размер файла %d\n", size_of_file);
 	fp = open(*filename, O_RDONLY);
-	buffer = (char *) malloc(sizeof(buffer) * size_of_file + 1);
+	buffer = (char *) malloc(sizeof(buffer) * (size_of_file + 1));
 	if (!buffer)
 	{
 		ft_putstr("map error / no memory located");
 		return (-1);
 	}
 	read(fp, buffer, size_of_file);
-	buffer[size_of_file + 1] = '\0';
+	buffer[size_of_file] = '\0';
 
 	write(1, buffer, size_of_file);		// показываем чего там начитали
 
@@ -233,15 +233,15 @@ int		check_map_body_symbols(const char *memory_stick, t_map to_check)
 	while (memory_stick[counter])
 	{
 		if (
-			(memory_stick[counter] != to_check.empty_space) &&
+			((memory_stick[counter] != to_check.empty_space) &&
 			(memory_stick[counter] != to_check.obstacle)	&&
-			(memory_stick[counter] == to_check.seed)	&&
 			(memory_stick[counter] != '\n')	&&
-			(memory_stick[counter] != '\0')
+			(memory_stick[counter] != '\0')) ||
+			(memory_stick[counter] == to_check.seed)
 			)
 		{
 			printf("Дичь на карте ёк макарёк!! %c ==", memory_stick[counter]);
-			printf("== %c, %c, %c", to_check.empty_space, to_check.obstacle, to_check.seed);
+			printf("%c, %c, %c", to_check.empty_space, to_check.obstacle, to_check.seed);
 			return (-counter);
 		}
 		counter++;
@@ -249,48 +249,75 @@ int		check_map_body_symbols(const char *memory_stick, t_map to_check)
 	return (0);
 }
 
-int		check_map_body_strings(const char *memory_stick, t_map to_check)
+int		check_map_body_strings(const char *memory_stick, t_map *to_check)
 {
 	int counter;
 	int strings_counter;
 	int strings_counter_memory;
+	int quantity_of_strings;
 
 	strings_counter = 0;
 	strings_counter_memory = 0;
-	counter = to_check.size_header + 1;
+	counter = (*to_check).size_header + 1;
+	quantity_of_strings = 0;
 	while (memory_stick[counter])
 	{
-		if (memory_stick[counter] == '\0')		//	проверка на неожиданный конец файла
+		if (!memory_stick[counter])		//	проверка на неожиданный конец файла
 		{
 			printf("неожиданный конец файла");
 			return (-1);
 		}
-		if (memory_stick[counter] != '\n')		//	вычисляем длинну первой строки
+		while (memory_stick[counter] != '\n')		//	вычисляем длинну первой строки
 		{
-			counter++;
-			break;
-		}
-		strings_counter_memory++;
-		counter++;
-	}
-
-	while (memory_stick[counter])
-		while (memory_stick[counter])
-		{
-			if ((memory_stick[counter] != '\n'))
+			if (memory_stick[counter] == '\0')
 			{
-				if (strings_counter_memory == strings_counter)
-				{	//ok
-					strings_counter = 0;
-				}
-				else
-				{	//not ok
-					printf("строка не равна бро\n");
-					strings_counter = 0;
-				}
+				printf("нет переноса в строке");
+				return (-counter);
 			}
 			counter++;
+			strings_counter_memory++;
 		}
+		printf("размер первой строки = %d\n", strings_counter_memory);
+
+		printf("положение указателя %d", counter);
+		printf("содержимое указателя %c", memory_stick[counter]);
+		quantity_of_strings++;
+		break;
+	}
+
+	counter++;
+	while (memory_stick[counter])
+	{
+		while ((memory_stick[counter] != '\n'))
+		{
+			if (memory_stick[counter] == '\0')
+			{
+				printf("нет переноса в строке");
+				return (-counter);
+			}
+			strings_counter++;
+			counter++;
+		}
+		counter++;
+		if (strings_counter_memory == strings_counter)
+		{	//ok
+			strings_counter = 0;
+		}
+		else
+		{	//not ok
+			printf("строка не равна бро\n");
+			strings_counter = 0;
+			return (-counter);
+		}
+		quantity_of_strings++;
+
+	}
+	if (quantity_of_strings != (*to_check).number_of_lines)
+	{
+		printf("расхождение в количестве строк %d != %d \n", quantity_of_strings, (*to_check).number_of_lines);
+		return (-counter);
+	}
+	to_check->line_length = strings_counter_memory;
 	return (0);
 }
 
@@ -317,8 +344,9 @@ int		main(void)
 	printf("пустой символ %c\n", my_header.empty_space);
 	printf("символ препятствия %c\n", my_header.obstacle);
 	printf("символ заполнения квадрата %c\n", my_header.seed);
-
-	printf("     %d", check_map_body_symbols(datafile, my_header));
-	printf("     %d", check_map_body_strings(datafile, my_header));
+	printf("размер строки ёба %d\n", my_header.line_length);
+	printf("     %d\n", check_map_body_symbols(datafile, my_header));
+	printf("     %d\n", check_map_body_strings(datafile, &my_header));
+	printf("размер строки ёба %d\n", my_header.line_length);
 
 }
