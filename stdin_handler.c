@@ -28,9 +28,9 @@ char	*stdin_to_string(void)
 	}
 	return (file_data);
 }
-
+/*
 int main()
 {
 	char *kek = stdin_to_string();
 	printf("\n%s", kek);
-}
+}*/

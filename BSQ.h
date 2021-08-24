@@ -50,4 +50,6 @@ void		map_print(int **kek, t_map map_par);
 int			**parce_line(char *datafile, t_map map_parameters);
 int		main_parcer(char **datafile, t_map *my_header);
 
+char	*stdin_to_string(void);
+
 #endif //BSQ_H
