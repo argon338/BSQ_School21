@@ -96,8 +96,6 @@ int	main(int argc, char **argv)
 	while (i < argc)
 	{
 		accept_file(argv[i]);
-		if (i != argc - 1)
-			write(1, "\n", 1);
 		i++;
 	}
 	return (0);
