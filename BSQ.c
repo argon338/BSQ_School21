@@ -22,12 +22,6 @@ int	find_the_square(int **map, t_map map_par)
 	map_size.y = map_par.number_of_lines;
 	map_size.x = map_par.line_length;
 	max_square = check_placement(map, map_size);
-	if (max_square.size == 0)
-	{
-		free_array(map, map_par.number_of_lines - 1);
-		write(2, "map error\n", 11);
-		return (1);
-	}
 	map_print_sqr(map, map_par, max_square);
 	free_array(map, map_par.number_of_lines - 1);
 	return (0);
