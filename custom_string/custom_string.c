@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "custom_string.h"
+#include "../BSQ.h"
 #include <stdlib.h>
 
 int	ft_strlen(char *str)

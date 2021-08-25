@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "BSQ.h"
+#include "../BSQ.h"
 #include <stdio.h>
 t_square	check_placement_zero(int **map, t_point size)
 {
@@ -25,7 +25,6 @@ t_square	check_placement_zero(int **map, t_point size)
 		cursor.x = 0;
 		while (cursor.x < size.x - max.size)
 		{
-			//printf("put_square cursor (%d, %d)\n", cursor.y, cursor.x);
 			if (map[cursor.y][cursor.x] == 0)
 			{
 				init_square(&new, cursor.y, cursor.x, max.size);
@@ -56,7 +55,6 @@ t_square	check_placement(int **map, t_point size)
 		while ((cursor.y < size.y - max.size + 1) && (max.size < size.x)) {
 			cursor.x = 0;
 			while ((cursor.x < size.x - max.size + 1) && (max.size < size.y)) {
-				//printf("put_square cursor (%d, %d)\n", cursor.y, cursor.x);
 				if (map[cursor.y][cursor.x] == 0) {
 					init_square(&new, cursor.y, cursor.x, max.size);
 					new = put_square(map, size, new);

@@ -13,9 +13,6 @@
 #ifndef BSQ_H
 # define BSQ_H
 
-# include <stdlib.h>
-# include "custom_string.h"
-
 typedef struct s_map
 {
 	int		size_header;
@@ -38,18 +35,9 @@ typedef struct s_square
 	int		size;
 }	t_square;
 
-void		init_square(t_square *src, int y, int x, int size);
-void		copy_square(t_square *dest, t_square *src);
-
-t_square	put_bigger_square(int **map, t_point size, t_square new);
-t_square	put_square(int **map, t_point size, t_square new);
-
-t_square	check_placement(int **map, t_point size);
-void		map_print(int **kek, t_map map_par);
-
-int			**parce_line(char *datafile, t_map map_parameters);
-int		main_parcer(char **datafile, t_map *my_header);
-
-char	*stdin_to_string(void);
+# include "custom_string/custom_string.h"
+# include "parcer/parcer.h"
+# include "placement_algorythm/placement_algorythm.h"
+# include "map_print/map_print.h"
 
 #endif //BSQ_H

@@ -1,6 +1,7 @@
-#include "BSQ.h"
+#include "../BSQ.h"
 #include <unistd.h>
-#include <stdio.h>
+#include <stdlib.h>
+
 char	*stdin_to_string(void)
 {
 	char	*file_data;
@@ -28,9 +29,3 @@ char	*stdin_to_string(void)
 	}
 	return (file_data);
 }
-/*
-int main()
-{
-	char *kek = stdin_to_string();
-	printf("\n%s", kek);
-}*/
