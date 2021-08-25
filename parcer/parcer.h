@@ -1,7 +1,19 @@
-#ifndef PARCER_H
-#define PARCER_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parcer.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hkrishna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/25 18:49:58 by hkrishna          #+#    #+#             */
+/*   Updated: 2021/08/25 18:50:00 by hkrishna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "../BSQ.h"
+#ifndef PARCER_H
+# define PARCER_H
+
+# include "../BSQ.h"
 //Defined in parce_line.c
 void	free_array(int **a, int i);
 int		**parce_line(char *datafile, t_map map_parameters);

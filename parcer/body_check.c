@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   body_check.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hkrishna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/25 18:37:33 by hkrishna          #+#    #+#             */
+/*   Updated: 2021/08/25 18:37:35 by hkrishna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../BSQ.h"
 
 typedef struct s_counters
@@ -16,10 +28,10 @@ int	check_map_body_symbols(const char *memory_stick, t_map to_check)
 	while (memory_stick[counter])
 	{
 		if (((memory_stick[counter] != to_check.empty_space)
-		&& (memory_stick[counter] != to_check.obstacle)
-		&& (memory_stick[counter] != '\n')
-		&& (memory_stick[counter] != '\0'))
-		|| (memory_stick[counter] == to_check.seed))
+				&& (memory_stick[counter] != to_check.obstacle)
+				&& (memory_stick[counter] != '\n')
+				&& (memory_stick[counter] != '\0'))
+			|| (memory_stick[counter] == to_check.seed))
 		{
 			return (-counter);
 		}

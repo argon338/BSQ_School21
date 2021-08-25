@@ -17,10 +17,12 @@ void	free_array(int **a, int i)
 {
 	while (i >= 0)
 	{
-		free(a[i]);
+		if (a[i] != NULL)
+			free(a[i]);
 		i--;
 	}
-	free(a);
+	if (a != NULL)
+		free(a);
 }
 
 int	find_reference(char symbol, t_map map_parameters)

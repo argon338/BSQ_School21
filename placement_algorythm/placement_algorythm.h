@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   placement_algorythm.h                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hkrishna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/25 18:50:11 by hkrishna          #+#    #+#             */
+/*   Updated: 2021/08/25 18:50:13 by hkrishna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PLACEMENT_ALGORYTHM_H
-#define PLACEMENT_ALGORYTHM_H
+# define PLACEMENT_ALGORYTHM_H
 
 # include "../BSQ.h"
 //Defined in misc.c

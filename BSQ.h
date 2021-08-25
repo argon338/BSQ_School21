@@ -13,28 +13,7 @@
 #ifndef BSQ_H
 # define BSQ_H
 
-typedef struct s_map
-{
-	int		size_header;
-	int		number_of_lines;
-	int		line_length;
-	char	empty_space;
-	char	obstacle;
-	char	seed;
-}	t_map;
-
-typedef struct s_point
-{
-	int	y;
-	int	x;
-}	t_point;
-
-typedef struct s_square
-{
-	t_point	start;
-	int		size;
-}	t_square;
-
+# include "custom_struct.h"
 # include "custom_string/custom_string.h"
 # include "parcer/parcer.h"
 # include "placement_algorythm/placement_algorythm.h"

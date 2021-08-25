@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../BSQ.h"
-#include <stdio.h>
 t_square	check_placement_zero(int **map, t_point size)
 {
 	t_point		cursor;
@@ -31,8 +30,7 @@ t_square	check_placement_zero(int **map, t_point size)
 				new = put_square(map, size, new);
 				if (new.size > max.size)
 				{
-					max = new;
-					return (max);
+					return (new);
 				}
 			}
 			cursor.x++;
@@ -40,6 +38,12 @@ t_square	check_placement_zero(int **map, t_point size)
 		cursor.y++;
 	}
 	return (max);
+}
+
+void	cmp_square(t_square *max, t_square *new)
+{
+	if (new->size > max->size)
+		*max = *new;
 }
 
 t_square	check_placement(int **map, t_point size)
@@ -52,14 +56,16 @@ t_square	check_placement(int **map, t_point size)
 	if (max.size)
 	{
 		cursor.y = 0;
-		while ((cursor.y < size.y - max.size + 1) && (max.size < size.x)) {
+		while ((cursor.y < size.y - max.size + 1) && (max.size < size.x))
+		{
 			cursor.x = 0;
-			while ((cursor.x < size.x - max.size + 1) && (max.size < size.y)) {
-				if (map[cursor.y][cursor.x] == 0) {
+			while ((cursor.x < size.x - max.size + 1) && (max.size < size.y))
+			{
+				if (map[cursor.y][cursor.x] == 0)
+				{
 					init_square(&new, cursor.y, cursor.x, max.size);
 					new = put_square(map, size, new);
-					if (new.size > max.size)
-						max = new;
+					cmp_square(&max, &new);
 				}
 				cursor.x++;
 			}

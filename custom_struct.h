@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_string.c                                        :+:      :+:    :+:   */
+/*   custom_struct.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hkrishna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/25 18:36:45 by hkrishna          #+#    #+#             */
-/*   Updated: 2021/08/25 18:36:47 by hkrishna         ###   ########.fr       */
+/*   Created: 2021/08/25 18:55:29 by hkrishna          #+#    #+#             */
+/*   Updated: 2021/08/25 18:55:30 by hkrishna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../BSQ.h"
-#include <unistd.h>
+#ifndef CUSTOM_STRUCT_H
+# define CUSTOM_STRUCT_H
 
-int	ft_strcmp(char *s1, char *s2)
+typedef struct s_map
 {
-	while (*s1 == *s2 && *s1)
-	{
-		s1++;
-		s2++;
-	}
-	return (*s1 - *s2);
-}
+	int		size_header;
+	int		number_of_lines;
+	int		line_length;
+	char	empty_space;
+	char	obstacle;
+	char	seed;
+}	t_map;
 
-void	ft_putstr(const char *str)
+typedef struct s_point
 {
-	int	counter;
+	int	y;
+	int	x;
+}	t_point;
 
-	counter = 0;
-	while (str[counter])
-		write(1, &str[counter++], 1);
-}
+typedef struct s_square
+{
+	t_point	start;
+	int		size;
+}	t_square;
+
+#endif //CUSTOM_STRUCT_H
