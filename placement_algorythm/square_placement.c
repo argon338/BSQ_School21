@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../BSQ.h"
-#include <stdio.h>
+
 t_square	mark_inaccessible(int **map, t_point size, t_square new,
 							  t_point obstacle)
 {

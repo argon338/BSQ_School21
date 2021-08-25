@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../BSQ.h"
+
 t_square	check_placement_zero(int **map, t_point size)
 {
 	t_point		cursor;
