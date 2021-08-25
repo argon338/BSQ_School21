@@ -80,7 +80,7 @@ int	accept_file(char *data_file)
 	}
 	return (data_file_to_map(data_file));
 }
-#include <stdio.h>
+
 int	main(int argc, char **argv)
 {
 	int	i;
@@ -91,15 +91,8 @@ int	main(int argc, char **argv)
 	while (i < argc)
 	{
 		accept_file(argv[i]);
-//		printf("arg: %s\n", argv[i]);
-//		if (argv[i] != NULL)
-//			free (argv[i]);
 		if (i != argc - 1)
 			write(1, "\n", 1);
-		i++;
-	}
-	while (1)
-	{
 		i++;
 	}
 	return (0);
