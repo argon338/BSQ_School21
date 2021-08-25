@@ -24,7 +24,9 @@ int	ft_display_file(char **filename)
 
 	fp = open(*filename, O_RDONLY);
 	if (fp == -1)
+	{
 		return (-1);
+	}
 	size_of_file = 0;
 	while (read(fp, &character, 1))
 		size_of_file++;

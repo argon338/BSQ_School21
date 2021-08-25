@@ -52,7 +52,6 @@ int	data_file_to_map(char *data_file)
 		write(2, "map error\n", 11);
 		return (1);
 	}
-
 	return (find_the_square(map, map_par));
 }
 
@@ -71,7 +70,14 @@ int	accept_stdin(void)
 
 int	accept_file(char *data_file)
 {
-	ft_display_file(&data_file);
+	int	readerr;
+
+	readerr = ft_display_file(&data_file);
+	if (readerr <= 0)
+	{
+		write(2, "map error\n", 11);
+		return (1);
+	}
 	if (data_file == NULL)
 	{
 		write(2, "map error\n", 11);
